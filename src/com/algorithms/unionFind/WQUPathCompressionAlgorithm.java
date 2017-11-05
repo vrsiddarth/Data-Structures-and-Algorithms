@@ -2,11 +2,11 @@ package com.algorithms.unionFind;
 
 import java.util.Arrays;
 
-public class WeightedQuickUnionAlgorithm {
+public class WQUPathCompressionAlgorithm {
 	private int[] Node;
 	private int[] sizeofNode;
 
-	public WeightedQuickUnionAlgorithm(int N) {
+	public WQUPathCompressionAlgorithm(int N) {
 		// TODO Auto-generated constructor stub
 		Node = new int[N];
 		sizeofNode= new int[N];
@@ -20,15 +20,15 @@ public class WeightedQuickUnionAlgorithm {
 		// TODO Auto-generated method stub
 		int pid = root(p);
 		int qid = root(q);
-		 if (pid == qid) return;
 		if(sizeofNode[p]<sizeofNode[q]){
 			Node[pid] = qid;
-			sizeofNode[qid]+=sizeofNode[pid];
+			sizeofNode[q]=sizeofNode[q]+sizeofNode[p];
 		}
 		else {
 			Node[qid] = pid;
-			sizeofNode[pid]+=sizeofNode[pid];
+			sizeofNode[p]=sizeofNode[p]+sizeofNode[q];
 		}
+		System.out.println(Arrays.toString(Node));
 	}
 
 	public boolean connected(int p, int q) {
@@ -43,6 +43,7 @@ public class WeightedQuickUnionAlgorithm {
 	private int root(int p) {
 		// TODO Auto-generated method stub
 		while(p!= Node[p]) {
+			Node[p]=Node[Node[p]];
 			p=Node[p];
 		}
 		return p;
