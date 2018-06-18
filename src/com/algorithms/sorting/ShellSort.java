@@ -1,17 +1,19 @@
 package com.algorithms.sorting;
 
-public class SelectionSort{
+public class ShellSort {
 
 	@SuppressWarnings("unchecked")
 	public void sort(@SuppressWarnings("rawtypes") Comparable[] a) {
-		for (int i = 0; i < a.length; i++) {
-			int min = i;
-			for (int j = i + 1; j < a.length; j++) {
-				if (less(a[j], a[min]))
-					min = j;
-				exch(a, i, min);
+		int N = a.length;
+		int h = 0;
+		while (h <= N / 3)
+			h = 3 * h + 1;
+		while (h >= 1) {
+			for (int i = h; i < a.length; i++) {
+				for (int j =i; j >= h && less(a[j], a[j - h]); j -= h)
+					exch(a, j, j - h);
 			}
-
+			h=h/3;
 		}
 	}
 
